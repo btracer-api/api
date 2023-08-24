@@ -1,0 +1,1192 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "REST API Drive On BlockChain",
+    "description": "REST API usada como suporte a aplicação mmobila do projeto Nomad.\n"
+  },
+  "host": "https://donomad-api.herokuapp.com/",
+  "basePath": "/api",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/farm": {
+      "post": {
+        "tags": [
+          "farm"
+        ],
+        "summary": "Adicionar Fazenda na Aplicação",
+        "description": "",
+        "operationId": "addFarm",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Farm object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Farm"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "write:farms",
+              "read:farms"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "farm"
+        ],
+        "summary": "Update an existing farm",
+        "description": "",
+        "operationId": "updateFarm",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Farm object that needs to be added to the application",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Farm"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Farm not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "write:farms",
+              "read:farms"
+            ]
+          }
+        ]
+      }
+    },
+    "/farm/{farmId}": {
+      "get": {
+        "tags": [
+          "farm"
+        ],
+        "summary": "Find farm by ID",
+        "description": "Returns a single farm",
+        "operationId": "getFarmById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "farmId",
+            "in": "path",
+            "description": "ID of farm to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Farm"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Farm not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "farm"
+        ],
+        "summary": "Updates a farm in the application with form data",
+        "description": "",
+        "operationId": "updateFarmWithForm",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "farmId",
+            "in": "path",
+            "description": "ID of farm that needs to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Updated name of the farm",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "formData",
+            "description": "Updated region of the farm",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "city",
+            "in": "formData",
+            "description": "Updated city of the farm",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "Updated description of the farm",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "usage",
+            "in": "formData",
+            "description": "Updated status of the farm",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "keyuser",
+            "in": "formData",
+            "description": "Updated User in charge of register the farm",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "geodata",
+            "in": "formData",
+            "description": "Updated Geo Location data of the farm",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "write:farms",
+              "read:farms"
+            ]
+          }
+        ]
+      }
+    },
+    "/label": {
+      "post": {
+        "tags": [
+          "label"
+        ],
+        "summary": "Adicionar Etiqueta na Aplicação",
+        "description": "",
+        "operationId": "addLabel",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Label"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "write:farms",
+              "read:farms"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "label"
+        ],
+        "summary": "Atualização de Etiqueta",
+        "description": "",
+        "operationId": "updateLabel",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Label"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Label not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "write:label",
+              "read:label"
+            ]
+          }
+        ]
+      }
+    },
+    "/label/{labelId}": {
+      "get": {
+        "tags": [
+          "label"
+        ],
+        "summary": "Find label by ID",
+        "description": "Returns a single label",
+        "operationId": "getLabelById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "labelId",
+            "in": "path",
+            "description": "ID of label to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Label"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Label not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Label"
+        ],
+        "summary": "Updates a label in the application with form data",
+        "description": "",
+        "operationId": "updateLabelWithForm",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "labelId",
+            "in": "path",
+            "description": "ID of label that needs to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "orderno",
+            "in": "formData",
+            "description": "Updated orderno of the label",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "process",
+            "in": "formData",
+            "description": "Updated process of the label",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "operation",
+            "in": "formData",
+            "description": "Updated operation of the label",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "production",
+            "in": "formData",
+            "description": "Updated production of the label",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "usage",
+            "in": "formData",
+            "description": "Updated status of the farm",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "year",
+            "in": "formData",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lastsequence",
+            "in": "formData",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "formData",
+            "description": "",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "write:label",
+              "read:label"
+            ]
+          }
+        ]
+      }
+    },
+    "/graintype": {
+      "post": {
+        "tags": [
+          "graintype"
+        ],
+        "summary": "Add a new grain type to the Application",
+        "description": "",
+        "operationId": "addGrainType",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Grain Type object that needs to be added to the farm",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GrainType"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "write:farms",
+              "read:farms"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "graintype"
+        ],
+        "summary": "Update an existing grain type",
+        "description": "",
+        "operationId": "updateGrainType",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Grain Type object that needs to be added to the farm",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GrainType"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Grain Type not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "write:farms",
+              "read:farms"
+            ]
+          }
+        ]
+      }
+    },
+    "/graintype/{graintypeId}": {
+      "get": {
+        "tags": [
+          "graintype"
+        ],
+        "summary": "Find Grain Type by ID",
+        "description": "Returns a single Grain Type",
+        "operationId": "getGrainTypeById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "graintypeId",
+            "in": "path",
+            "description": "ID of Grain Type to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/GrainType"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Grain Type not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "graintype"
+        ],
+        "summary": "Updates a grain type in the application with form data",
+        "description": "",
+        "operationId": "updateGrainTypeWithForm",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "graintypeId",
+            "in": "path",
+            "description": "ID of Grain Type that needs to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "graintype",
+            "in": "formData",
+            "description": "Updated name of the Grain Type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "Updated description of the Grain Type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "usage",
+            "in": "formData",
+            "description": "Updated status of the farm",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_auth": [
+              "write:farms",
+              "read:farms"
+            ]
+          }
+        ]
+      }
+    },
+    "/production": {
+      "post": {
+        "tags": [
+          "production"
+        ],
+        "summary": "Production Info from a farm",
+        "description": "",
+        "operationId": "productionInfo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "production info for a farm",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Production"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Production"
+            }
+          },
+          "400": {
+            "description": "Invalid Production Info."
+          }
+        }
+      }
+    },
+    "/production/{prodId}": {
+      "get": {
+        "tags": [
+          "production"
+        ],
+        "summary": "Find production info by ID",
+        "description": "For valid response try Guid IDs.         Other values will generated exceptions",
+        "operationId": "getProductionById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "prodId",
+            "in": "path",
+            "description": "ID of production info that needs to be fetched",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Production"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Production informatons not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "production"
+        ],
+        "summary": "Delete production info by ID",
+        "description": "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors",
+        "operationId": "deleteProduction",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "prodId",
+            "in": "path",
+            "description": "ID of the production informations that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Production Info. not found"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/signin": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "signin",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "The email for login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/{:id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user by User Id",
+        "description": "",
+        "operationId": "getUserById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "{:id}",
+            "in": "body",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid User Id supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Updated user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "{:id}",
+            "in": "body",
+            "description": "User Id that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid user supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "disableUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "{:id}",
+            "in": "body",
+            "description": "The User Id that needs to be disabled",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid User Id supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Production": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "farmId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "graintypeId": {
+          "$ref": "#/definitions/GrainType"
+        },
+        "keyuser": {
+          "$ref": "#/definitions/User"
+        },
+        "harvestDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "farmer": {
+          "$ref": "#/definitions/User"
+        },
+        "altitudeData": {
+          "type": "string"
+        },
+        "goodQuantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "xml": {
+        "name": "Production"
+      }
+    },
+    "GrainType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "graintype": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "usage": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "xml": {
+        "name": "GrainType"
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "permissionLevel": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string",
+          "description": "User Status",
+          "enum": [
+            "new",
+            "locked",
+            "released"
+          ]
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "GeoData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "farmid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "altitudedata1": {
+          "type": "string"
+        },
+        "altitudedata2": {
+          "type": "string"
+        },
+        "geodata1": {
+          "type": "string"
+        },
+        "geodata2": {
+          "type": "string"
+        },
+        "gyrodata1": {
+          "type": "string"
+        },
+        "gyrodata2": {
+          "type": "string"
+        },
+        "touchdate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "harvestdate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "xml": {
+        "name": "GeoData"
+      }
+    },
+    "Farm": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fazendo Dois Irmaos"
+        },
+        "region": {
+          "type": "string",
+          "example": "Triangulo Mineiro"
+        },
+        "city": {
+          "type": "string",
+          "example": "Uberaba"
+        },
+        "description": {
+          "type": "string"
+        },
+        "usage": {
+          "type": "boolean",
+          "default": true
+        },
+        "keyuser": {
+          "$ref": "#/definitions/User"
+        },
+        "geodata": {
+          "$ref": "#/definitions/GeoData"
+        },
+        "certificates": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Farm"
+      }
+    },
+    "Label": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "orderno": {
+          "type": "string",
+          "example": "21342564475"
+        },
+        "process": {
+          "type": "string",
+          "example": "WOLFF"
+        },
+        "operation": {
+          "type": "string",
+          "example": "TORRA"
+        },
+        "production": {
+          "$ref": "#/definitions/set01"
+        },
+        "year": {
+          "type": "string"
+        },
+        "lastsequence": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "comments": {
+          "type": "string"
+        },
+        "usage": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "xml": {
+        "name": "Farm"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
